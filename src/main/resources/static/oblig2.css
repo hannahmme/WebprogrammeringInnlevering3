@@ -1,0 +1,45 @@
+body{
+    font-family: 'Times New Roman', SansSerif, serif;
+    padding: 10px;
+    text-align: left;
+    background-color: aliceblue!important;
+}
+
+label{
+    padding: 0px 20px 5px 0px;
+}
+
+img{
+    border-radius:25px;
+    height: auto;
+    width: 100px;
+    position: sticky;
+    margin: 0px 10px 0px 0px;
+    padding: 10px;
+}
+
+.inline-flex{
+    display: inline-flex;
+}
+.error{
+    color: red;
+}
+
+.margin-left{
+    margin-left: 10px;
+}
+
+.shadow{
+    box-shadow: 1px 1px 1px 1px;
+    text-align: center;
+}
+
+.button{
+    border-radius: 25px;
+    outline: none;
+}
+
+.input-invalid{
+    border: 1px solid red !important;
+
+}

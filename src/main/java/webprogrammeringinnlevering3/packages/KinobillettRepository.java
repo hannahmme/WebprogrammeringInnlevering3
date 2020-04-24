@@ -14,10 +14,10 @@ public class KinobillettRepository {
     private JdbcTemplate database;
 
     public void lagreBillett(Kinobillett kinobillett){
-        String sql = "INSERT INTO Kinobillett VALUES(?,?)";
+        String sql = "INSERT INTO Kinobillett VALUES(?,?,?,?,?,?)";
         database.update(sql, kinobillett.getFilm(), kinobillett.getAntall(),
-                        kinobillett.getFornavn(), kinobillett.getEtternavn(),
-                        kinobillett.getTlf(), kinobillett.getEpost());
+        kinobillett.getFornavn(), kinobillett.getEtternavn(),
+                kinobillett.getTlf(), kinobillett.getEpost());
 
     }
 

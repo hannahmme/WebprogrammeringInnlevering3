@@ -1,5 +1,7 @@
 package webprogrammeringinnlevering3.packages;
 
+import org.aspectj.weaver.patterns.KindedPointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,16 +11,14 @@ import java.util.List;
 
 @RestController
 class KinobillettController {
-    private List<Kinobillett> kinobillettArrayList = new ArrayList<>();
 
-    public List<Kinobillett> getKinobillettArrayList() {
-        return kinobillettArrayList;
-    }
+    @Autowired
+    private KinobillettRepository kbRep;
 
     @PostMapping("/lagreBillett")
     public String arrayFiller(Kinobillett billett) {
         if (Kinobillett.billettIsValid(billett)) {
-            getKinobillettArrayList().add(billett);
+            kbRep.lagreBillett(billett);
             return "Billetten er registrert!";
         } else {
             return "Noe gikk galt ved kjøp av billett. Prøv igjen.";
@@ -27,11 +27,11 @@ class KinobillettController {
 
     @PostMapping("/slettBillett")
     public void slettBillett(){
-        getKinobillettArrayList().clear();
+        kbRep.slettBillett();
     }
 
     @GetMapping("/lastBillett")
     public List<Kinobillett> lastBillett(){
-        return getKinobillettArrayList();
+        return kbRep.lastBillett();
     }
 }

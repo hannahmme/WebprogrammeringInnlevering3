@@ -7,6 +7,7 @@ const epostMsg  = "Skriv inn gyldig epostadresse.";
 function registrerBillett(){
     //Henter verdier fra inputfeltene.
     const kinobillett = {
+
         film        : $("#film").val(),
         antall      : $("#antall").val(),
         fornavn     : $("#fornavn").val(),
@@ -81,6 +82,14 @@ $(document).ready(function() {
     lastInnBillett();
 });
 
+
+//metode som sletter en valgt kinobillett i listen
+function slettEnBillett(ordreNr){
+    const url = "/slettEnBillett?ordreNr=" + ordreNr;
+    $.get(url, function(){
+        window.location.href = "/";
+    })
+}
 
 //metode som blir kalt på når vi registrerer en billett. Denne metoden returnerer listen med billetter
 //og kaller på en metode som får hvert element i listen formatert og skrevet ut.

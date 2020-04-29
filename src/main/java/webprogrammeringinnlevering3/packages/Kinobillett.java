@@ -1,6 +1,10 @@
 package webprogrammeringinnlevering3.packages;
 
+
+import java.util.Random;
+
 public class Kinobillett {
+    private int ordreNr;
     private String film;
     private int antall;
     private String fornavn;
@@ -9,6 +13,7 @@ public class Kinobillett {
     private String epost;
 
     public Kinobillett(String inFilm, int inAntall, String inFornavn, String inEtternavn, String inTlf, String inEpost){
+        this.ordreNr = genererTilfeldigOrdreNr();
         this.film = inFilm;
         this.antall = inAntall;
         this.fornavn = inFornavn;
@@ -18,6 +23,10 @@ public class Kinobillett {
     }
 
     public Kinobillett(){}
+
+    public int getOrdreNr() { return ordreNr; }
+
+    public void setOrdreNr(int ordreNr){ this.ordreNr = ordreNr; }
 
     public String getFilm() { return film; }
 
@@ -45,6 +54,12 @@ public class Kinobillett {
 
     private static String regexTlf = "[0-9]{8}";
     private static String regexEpost = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?!-)(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+
+    //metode som returnerer et tilfeldig ordreNr f.o.m 0 til 100
+    public static int genererTilfeldigOrdreNr(){
+        Random randomNumber = new Random();
+        return randomNumber.nextInt(100);
+    }
 
     //validering på serversiden for å forhindre ugyldige inputverdier fra klientsiden.
     public static boolean billettIsValid(Kinobillett billett){

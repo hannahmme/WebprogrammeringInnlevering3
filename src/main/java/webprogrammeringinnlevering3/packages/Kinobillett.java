@@ -2,9 +2,10 @@ package webprogrammeringinnlevering3.packages;
 
 
 import java.util.Random;
+import java.util.UUID;
 
 public class Kinobillett {
-    private int ordreNr;
+    private String billettID;
     private String film;
     private int antall;
     private String fornavn;
@@ -14,7 +15,7 @@ public class Kinobillett {
 
     //Konstruktøren er ikke i bruk her, da vi ikke oppretter en "new Kinobillett" på server-siden
     public Kinobillett(String inFilm, int inAntall, String inFornavn, String inEtternavn, String inTlf, String inEpost){
-        this.ordreNr = genererTilfeldigOrdreNr();
+        this.billettID = genererBillettID();
         this.film = inFilm;
         this.antall = inAntall;
         this.fornavn = inFornavn;
@@ -26,9 +27,9 @@ public class Kinobillett {
     //POJO
     public Kinobillett(){}
 
-    public int getOrdreNr() { return ordreNr; }
+    public String getbillettID() { return billettID; }
 
-    public void setOrdreNr(int ordreNr){ this.ordreNr = ordreNr; }
+    public void setbillettID(String billettID){ this.billettID = billettID; }
 
     public String getFilm() { return film; }
 
@@ -57,10 +58,10 @@ public class Kinobillett {
     private static String regexTlf = "[0-9]{8}";
     private static String regexEpost = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?!-)(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
-    //metode som returnerer et tilfeldig ordreNr f.o.m 0 til 100
-    public static int genererTilfeldigOrdreNr(){
-        Random randomNumber = new Random();
-        return randomNumber.nextInt(100);
+    //metode som returnerer et tilfeldig billettID (GUID/UUID)
+    public static String genererBillettID(){
+        String billettID = UUID.randomUUID().toString();
+        return billettID;
     }
 
     //validering på serversiden for å forhindre ugyldige inputverdier fra klientsiden.

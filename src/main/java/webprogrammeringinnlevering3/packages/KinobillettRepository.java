@@ -17,15 +17,15 @@ public class KinobillettRepository {
     private JdbcTemplate database;
 
     //metode som sletter en bestemt billett basert på ordrenummeret som er generert i backend.
-    public void slettEnBillett(String ordreNr){
-        String sql = "DELETE FROM Kinobillett WHERE ordreNr=?";
-        database.update(sql, ordreNr);
+    public void slettEnBillett(String billettID){
+        String sql = "DELETE FROM Kinobillett WHERE billettID=?";
+        database.update(sql, billettID);
     }
 
     //metode som lagrer en kinobillett i databasen ved hjelp av sql-spørring
     public void lagreBillett(Kinobillett kinobillett){
-        String sql = "INSERT INTO Kinobillett (ordreNr, film, antall, fornavn, etternavn, tlf, epost) VALUES(?,?,?,?,?,?,?)";
-        database.update(sql, kinobillett.getOrdreNr(), kinobillett.getFilm(), kinobillett.getAntall(),
+        String sql = "INSERT INTO Kinobillett (billettID, film, antall, fornavn, etternavn, tlf, epost) VALUES(?,?,?,?,?,?,?)";
+        database.update(sql, kinobillett.getbillettID(), kinobillett.getFilm(), kinobillett.getAntall(),
         kinobillett.getFornavn(), kinobillett.getEtternavn(),
                 kinobillett.getTlf(), kinobillett.getEpost());
     }

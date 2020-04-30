@@ -7,7 +7,7 @@ const epostMsg  = "Skriv inn gyldig epostadresse.";
 function registrerBillett(){
     //Henter verdier fra inputfeltene.
     const kinobillett = {
-        /*ordreNr     : $.get("/genererOrdreId").valueOf(),*/
+        /*billettID     : $.get("/genererOrdreId").valueOf(),*/
         film        : $("#film").val(),
         antall      : $("#antall").val(),
         fornavn     : $("#fornavn").val(),
@@ -101,7 +101,6 @@ function formaterBillettinfo(billettListe) {
             "<th>Etternavn</th>" +
             "<th>Telefonnummer</th>" +
             "<th>Epost</th>" +
-            "<th>Ordrenummer</th>" +
             "<th></th>" +
         "</tr>";
     for (const kinobillett of billettListe) {
@@ -113,11 +112,11 @@ function formaterBillettinfo(billettListe) {
                 "<td>" + kinobillett.etternavn  +"</td>" +
                 "<td>" + "+47 "+kinobillett.tlf +"</td>" +
                 "<td>" + kinobillett.epost      +"</td>" +
-                "<td>" + kinobillett.ordreNr     +"</td>" +
-                "<td><button class='btn btn-danger' onclick='slettEnBillett("+ kinobillett.ordreNr+")'>Slett</button></td>" +
+                "<td><button class='btn btn-danger' onclick=\"slettEnBillett('"+kinobillett.billettID+"')\">Slett</button></td>" +
                 "</tr>";
     }
         tabell += "</table>";
+
 
     //(for å unngå table-header med tom liste hver gang siden refreshes, ref. (document).ready-metoden.).
     //hvis listen er tom, skal den ikke skrives ut i tabellen.
@@ -127,9 +126,9 @@ function formaterBillettinfo(billettListe) {
 }
 
     //metode som sletter en valgt kinobillett i listen
-    function slettEnBillett(ordreNr){
-    console.log("Billetten vi vil slette:" , ordreNr);
-        const url = "/slettEnBillett?ordreNr=" + ordreNr;
+    function slettEnBillett(billettID){
+    console.log("Billetten vi vil slette:" , billettID);
+        const url = "/slettEnBillett?billettID=" + billettID;
         $.get(url, function(){
             window.location.href = "/oblig3.html";
         })

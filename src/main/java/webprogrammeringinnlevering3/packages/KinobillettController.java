@@ -19,11 +19,11 @@ class KinobillettController {
     public String arrayFiller(Kinobillett billett) {
         if (Kinobillett.billettIsValid(billett)) {
 
-            //generer et ordrenummer
-            int ordreNr = Kinobillett.genererTilfeldigOrdreNr();
+            //generer en billettID
+            String billettID = Kinobillett.genererBillettID();
 
-            //billetten tilegnes ordrenummeret
-            billett.setOrdreNr(ordreNr);
+            //billetten tilegnes billettID
+            billett.setbillettID(billettID);
 
             //lagrer billetten i databasen
             kbRep.lagreBillett(billett);
@@ -33,10 +33,10 @@ class KinobillettController {
         }
     }
 
-    //metode som sletter en billett basert på ordreNr
+    //metode som sletter en billett basert på billettID
     @GetMapping("/slettEnBillett")
-    public void slettEnBillett(String ordreNr){
-        kbRep.slettEnBillett(ordreNr);
+    public void slettEnBillett(String billettID){
+        kbRep.slettEnBillett(billettID);
     }
 
     //kall fra klient-siden om å slette alle billetter.

@@ -101,7 +101,7 @@ function formaterBillettinfo(billettListe) {
             "<th>Etternavn</th>" +
             "<th>Telefonnummer</th>" +
             "<th>Epost</th>" +
-            "<th>OrdnreNummer</th>" +
+            "<th>Ordrenummer</th>" +
             "<th></th>" +
         "</tr>";
     for (const kinobillett of billettListe) {

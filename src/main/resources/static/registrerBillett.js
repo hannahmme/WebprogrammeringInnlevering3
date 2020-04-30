@@ -7,7 +7,7 @@ const epostMsg  = "Skriv inn gyldig epostadresse.";
 function registrerBillett(){
     //Henter verdier fra inputfeltene.
     const kinobillett = {
-
+        /*ordreNr     : $.get("/genererOrdreId").valueOf(),*/
         film        : $("#film").val(),
         antall      : $("#antall").val(),
         fornavn     : $("#fornavn").val(),
@@ -82,27 +82,18 @@ $(document).ready(function() {
     lastInnBillett();
 });
 
-
-//metode som sletter en valgt kinobillett i listen
-function slettEnBillett(ordreNr){
-    const url = "/slettEnBillett?ordreNr=" + ordreNr;
-    $.get(url, function(){
-        window.location.href = "/";
-    })
-}
-
 //metode som blir kalt på når vi registrerer en billett. Denne metoden returnerer listen med billetter
 //og kaller på en metode som får hvert element i listen formatert og skrevet ut.
 function lastInnBillett(){
-    $.get("/lastBillett", function (billettListe){
+    $.get("/lastAlleBilletter", function (billettListe){
         formaterBillettinfo(billettListe);
     })
 }
 
-//Blir kalt på at lastInnBillett. Lager informasjon fra billettlisten over til tabell-form og sender det ut på nettsiden.
+//Blir kalt på av lastInnBillett. Lager informasjon fra billettlisten over til tabell-form og sender det ut på nettsiden.
 function formaterBillettinfo(billettListe) {
     let tabell =
-        "<table class='table'>" +
+    "<table class='table'>" +
             "<tr class='bg-success'>" +
             "<th>Film</th>" +
             "<th>Antall</th>" +
@@ -110,9 +101,11 @@ function formaterBillettinfo(billettListe) {
             "<th>Etternavn</th>" +
             "<th>Telefonnummer</th>" +
             "<th>Epost</th>" +
+            "<th>OrdnreNummer</th>" +
+            "<th></th>" +
         "</tr>";
     for (const kinobillett of billettListe) {
-            tabell +=
+        tabell +=
                 "<tr class='bg-info'>" +
                 "<td>" + kinobillett.film       +"</td>" +
                 "<td>" + kinobillett.antall     +"</td>" +
@@ -120,20 +113,31 @@ function formaterBillettinfo(billettListe) {
                 "<td>" + kinobillett.etternavn  +"</td>" +
                 "<td>" + "+47 "+kinobillett.tlf +"</td>" +
                 "<td>" + kinobillett.epost      +"</td>" +
+                "<td>" + kinobillett.ordreNr     +"</td>" +
+                "<td><button class='btn btn-danger' onclick='slettEnBillett("+ kinobillett.ordreNr+")'>Slett</button></td>" +
                 "</tr>";
-        }
+    }
         tabell += "</table>";
 
-    //hvis listen er tom, skal den ikke skrives ut i tabellen.
     //(for å unngå table-header med tom liste hver gang siden refreshes, ref. (document).ready-metoden.).
-        if(billettListe.length > 0){
-            $("#textfield").html(tabell);
-        }
+    //hvis listen er tom, skal den ikke skrives ut i tabellen.
+    if(billettListe.length > 0){
+        $("#textfield").html(tabell);
+    }
 }
 
+    //metode som sletter en valgt kinobillett i listen
+    function slettEnBillett(ordreNr){
+    console.log("Billetten vi vil slette:" , ordreNr);
+        const url = "/slettEnBillett?ordreNr=" + ordreNr;
+        $.get(url, function(){
+            window.location.href = "/oblig3.html";
+        })
+    }
+
     //sletter listen og setter tabellen i tekstfeltet med tom liste.
-    function slettBillett() {
-        $.post("/slettBillett", function () {
+    function slettAlleBilletter() {
+        $.post("/slettAlleBilletter", function () {
             $("#textfield").html("");
         })
     }

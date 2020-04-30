@@ -13,9 +13,19 @@ class KinobillettController {
     @Autowired
     private KinobillettRepository kbRep;
 
+
+    //billett sendes fra klient-siden
     @PostMapping("/lagreBillett")
     public String arrayFiller(Kinobillett billett) {
         if (Kinobillett.billettIsValid(billett)) {
+
+            //generer et ordrenummer
+            int ordreNr = Kinobillett.genererTilfeldigOrdreNr();
+
+            //billetten tilegnes ordrenummeret
+            billett.setOrdreNr(ordreNr);
+
+            //lagrer billetten i databasen
             kbRep.lagreBillett(billett);
             return "Billetten er registrert!";
         } else {
@@ -23,18 +33,22 @@ class KinobillettController {
         }
     }
 
+    //metode som sletter en billett basert på ordreNr
     @GetMapping("/slettEnBillett")
     public void slettEnBillett(String ordreNr){
         kbRep.slettEnBillett(ordreNr);
     }
 
-    @PostMapping("/slettBillett")
-    public void slettBillett(){
-        kbRep.slettBillett();
+    //kall fra klient-siden om å slette alle billetter.
+    //Sender kall videre i backend som sletter alle billettene i databasen
+    @PostMapping("/slettAlleBilletter")
+    public void slettAlleBilletter(){ kbRep.slettAlleBilletter(); }
+
+    //metode som sender et kall på metoden i repository-klassen,
+    //og returnerer alle billettene fra databasen
+    @GetMapping("/lastAlleBilletter")
+    public List<Kinobillett> lastAlleBilletter(){
+        return kbRep.lastAlleBilletter();
     }
 
-    @GetMapping("/lastBillett")
-    public List<Kinobillett> lastBillett(){
-        return kbRep.lastBillett();
-    }
 }

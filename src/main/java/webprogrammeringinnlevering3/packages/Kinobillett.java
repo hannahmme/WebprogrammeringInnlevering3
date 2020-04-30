@@ -12,6 +12,7 @@ public class Kinobillett {
     private String tlf;
     private String epost;
 
+    //Konstruktøren er ikke i bruk her, da vi ikke oppretter en "new Kinobillett" på server-siden
     public Kinobillett(String inFilm, int inAntall, String inFornavn, String inEtternavn, String inTlf, String inEpost){
         this.ordreNr = genererTilfeldigOrdreNr();
         this.film = inFilm;
@@ -22,6 +23,7 @@ public class Kinobillett {
         this.epost = inEpost;
     }
 
+    //POJO
     public Kinobillett(){}
 
     public int getOrdreNr() { return ordreNr; }

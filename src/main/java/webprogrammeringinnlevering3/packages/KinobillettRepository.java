@@ -16,28 +16,28 @@ public class KinobillettRepository {
     @Autowired
     private JdbcTemplate database;
 
+    //metode som sletter en bestemt billett basert på ordrenummeret som er generert i backend.
     public void slettEnBillett(String ordreNr){
-        String sql = "DELETE FROM Kinobillett WHERE ordrNr=?";
+        String sql = "DELETE FROM Kinobillett WHERE ordreNr=?";
         database.update(sql, ordreNr);
-
     }
 
+    //metode som lagrer en kinobillett i databasen ved hjelp av sql-spørring
     public void lagreBillett(Kinobillett kinobillett){
-        String sql = "INSERT INTO Kinobillett (film, antall, fornavn, etternavn, tlf, epost) VALUES(?,?,?,?,?,?)";
-        database.update(sql, kinobillett.getFilm(), kinobillett.getAntall(),
+        String sql = "INSERT INTO Kinobillett (ordreNr, film, antall, fornavn, etternavn, tlf, epost) VALUES(?,?,?,?,?,?,?)";
+        database.update(sql, kinobillett.getOrdreNr(), kinobillett.getFilm(), kinobillett.getAntall(),
         kinobillett.getFornavn(), kinobillett.getEtternavn(),
                 kinobillett.getTlf(), kinobillett.getEpost());
-
-
     }
 
-    public List<Kinobillett> lastBillett(){
+    //metode som laster inn alle billetter fra databasen
+    public List<Kinobillett> lastAlleBilletter(){
         String sql = "SELECT * FROM Kinobillett";
         return database.query(sql, new BeanPropertyRowMapper(Kinobillett.class));
-
     }
 
-    public void slettBillett(){
+    //sletter alle billettene i databasen ved hjelp av sql-spørring "DELETE FROM"
+    public void slettAlleBilletter(){
         String sql = "DELETE FROM Kinobillett";
         database.update(sql);
     }
